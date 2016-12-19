@@ -1,0 +1,28 @@
+%table.table
+  %thead
+    %tr
+      %th Products
+      %th Vat Rate
+      %th Price
+  %tbody
+    - @baskets.each do |basket|
+      %tr
+        %td 
+          = basket.product.name
+        %td 
+          = convert_rate(basket.product.vat_rate)
+        %td 
+          = number_to_currency(basket.product.price, unit: "£",)
+  %tr
+    %td SubTotal
+    %td
+    %td 
+      = number_to_currency(@baskets.sub_total, unit: "£",)
+
+  %tr
+    %td Total
+    %td
+    %td 
+      = number_to_currency(@total, unit: "£",)
+
+

@@ -1,0 +1,48 @@
+#modalProduct.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4.modal-title 
+          = @product.name
+      .modal-body
+        .container
+          %table.col-md-8
+            %tbody
+              %tr
+                %td
+                  %strong Product Code
+                %td
+                %td 
+                  = @product.product_code
+              %tr
+                %td
+                  %strong Vat rate
+                %td
+                %td 
+                  = convert_rate @product.vat_rate
+
+              %tr
+                %td
+                  %strong Tax
+                %td
+                %td 
+                  = tax_fees @product.vat_rate, @product.price
+
+              %tr
+                %td
+                  %strong Details
+                %td
+                %td products
+              
+        .modal-footer
+          .text-right.pull-right.col-md-3
+            Price:
+            %br/
+            %span.h3.text-muted
+              %strong 
+                = number_to_currency @product.price, unit: "£"
+
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close

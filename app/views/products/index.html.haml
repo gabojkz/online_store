@@ -1,0 +1,32 @@
+.container
+  %h1.page-header Products
+
+  .container.centered
+    - if @products.present?
+      %ul.product_list
+        - @products.each  do |product|
+          %li
+            = image_tag( product.pic , :class => "product_image", size: "190x180")
+            .desc
+              %p
+                %strong
+                  = product.name
+              %p
+                %span
+                  = number_to_currency(product.price, unit: "£",)
+              = link_to "View", product_path(product.id) , :class => "btn btn-success", remote: true
+              = link_to "Add to Basket", buy_products_path(product_id: product.id, client_id: @client.id) , :class => "btn btn-warning", remote: true
+    - else
+      .alert.alert-danger
+        %strong Please!
+        Run rake db:seeds
+
+.container
+  %h1.page-header Basket 
+
+  .panel.panel-default
+    .panel-heading List of products
+    .panel-body
+      #products_selected_js
+        = render 'basket_products'
+#prouct_js
